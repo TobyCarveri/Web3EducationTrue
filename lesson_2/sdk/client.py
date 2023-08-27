@@ -19,7 +19,7 @@ class Client:
     w3: Web3
 
     def __init__(self, private_key: Optional[str] = None, network: Network = Networks.Goerli,
-                 proxy: Optional[str] = None, check_proxy: bool = True) -> None:
+                  proxy: Optional[str] = None, check_proxy: bool = True) -> None:
         self.network = network
         self.headers = {
             'accept': '*/*',

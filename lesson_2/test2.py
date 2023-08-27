@@ -2,6 +2,8 @@ from typing import Union
 from decimal import Decimal
 from dataclasses import dataclass
 
+import time
+
 '''
 Token:
     name
@@ -26,7 +28,6 @@ dicimals
 try
 '''
 
-
 class TokenAmount:
     Wei: int
     Ether: Decimal
@@ -43,8 +44,12 @@ class TokenAmount:
 
         self.decimals = decimals
 
-    def __str__(self):
-        return f'{self.Ether}'
+    # def __str__(self):
+    #     return f'{self.Ether}'
+
+
+amount = TokenAmount(amount=1000000000000000000000, wei=True)
+print(amount.Ether)
 
 
 class Token:
@@ -52,6 +57,7 @@ class Token:
         self.name = name
         self.address = address
         self.balance = balance
+
 
     def __str__(self) -> str:
         return f'{self.name}: {self.balance}'
@@ -61,14 +67,14 @@ class Tokens:
     ETH = Token(
         name='ETH',
         address='0x00000000000000000000000000000000000000',
-        balance=TokenAmount(amount=1)
+        balance=TokenAmount(amount=1),
     )
     USDC = Token(
         name='USDC',
         address='0xIu67bubyTG23GBybuyb72672367826374gVHH76',
-        balance=TokenAmount(amount=1, decimals=6)
+        balance=(TokenAmount(amount=532, decimals=6).Ether),
     )
-
+print(Tokens.USDC)
 
 @dataclass
 class API:
@@ -83,22 +89,7 @@ class Person:
         self.age = age
 
     def __add__(self, other):
-        return Person(name=self.name, age=self.age + other.age)
-
-    def __sub__(self, other):
-        return Person(name=self.name, age=self.age - other.age)
-
-    def __mul__(self, other):
-        return Person(name=self.name, age=self.age * other.age)
-
-    def __truediv__(self, other):
-        return Person(name=self.name, age=self.age / other.age)
-
-    def __eq__(self, other):
-        return self.age == other.age
-
-    def __ne__(self, other):
-        return self.age != other.age
+        return Person(name=self.name + "years + " + other.name + ' years =', age=self.age + other.age)
 
     def __str__(self):
         return f'{self.name} | {self.age}'
@@ -107,10 +98,15 @@ class Person:
 persor_a = Person(name='Bob', age=20)
 persor_b = Person(name='Alice', age=21)
 
-print(persor_a + persor_b)
-print(persor_a - persor_b)
-print(persor_a * persor_b)
-print(persor_a / persor_b)
+
+# a = persor_a + persor_b
+# print(a.__str__()), print(type(a.__str__())),
+
+
+print(persor_a + persor_b), print((persor_a + persor_b).__str__())
+# print(persor_a - persor_b)
+# print(persor_a * persor_b)
+# print(persor_a / persor_b)
 print(persor_a == persor_b)
 print(persor_a != persor_b)
 
@@ -120,7 +116,26 @@ print(persor_a != persor_b)
 #
 
 
+@dataclass
+class Person2:
+    name: str
+    age: int
 
+    def __add__(self, other):
+        return Person(name=self.name + "years + " + other.name + ' years =', age=self.age + other.age)
+
+
+persor_a = Person2(name='Bob', age=20)
+persor_b = Person2(name='Alice', age=21)
+
+
+# a = persor_a + persor_b
+# print(a.__str__()), print(type(a.__str__())),
+
+
+print(persor_a + persor_b), print(type((persor_a + persor_b).__str__()))
+print(persor_a == persor_b)
+print(persor_a != persor_b)
 
 
 
